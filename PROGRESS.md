@@ -3,7 +3,7 @@
 - [x] M1 Python app + tests
 - [x] M2 Dockerfile + docker-compose
 - [x] M3 Bash health script
-- [ ] M4 Observability stack
+- [x] M4 Observability stack
 - [ ] M5 Kubernetes (kind)
 - [ ] M6 CI pipeline
 - [ ] M7 Terraform + AWS
