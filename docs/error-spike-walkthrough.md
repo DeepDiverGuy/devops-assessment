@@ -1,0 +1,9 @@
+## Walkthrough: "An error spike appears on the Application dashboard. How do you find the cause?"
+
+1. **Scope it (Application dashboard, metrics).** Note when the spike started and how big it is: the error-rate panel shows the ratio, and the request-rate panel shows whether traffic changed. Check p50/p95/p99 latency: errors with normal latency suggest a fast-failing code path, while rising latency suggests a slow dependency or saturation.
+2. **Find what is failing (same dashboard, Loki panel).** The ERROR logs panel sits next to the metrics and shares the time range. Narrow it by field at query time, e.g. `{service="app", level="ERROR"} | json | path="/error"`. Because `path`, `status` and `duration_ms` are parsed from the JSON log and are not labels, this filters without raising label cardinality. The log lines show the path, status code and message of the failing requests.
+3. **Check for resource causes (Containers dashboard).** Look at CPU, memory and memory-vs-limit for the app container in the same time window. A climb toward the limit or a restart points to an OOM kill or CPU throttling, rather than a code bug.
+4. **Check the host (Host dashboard).** Look at CPU, memory, disk and network on the host. If the container is fine but the host is saturated, the cause is noisy neighbours or a full disk, not the app.
+5. **Conclude and act.** If errors are concentrated on one path and resources are normal, it is an application bug: roll back the last release (see Deployment & Rollback). If resources are the cause, scale up or raise limits. The `HighErrorRate` alert (>5% for 5m) fires on this signal, and `AppInstanceDown` covers the case where the app stops responding altogether.
+
+Demo used here: `/error` is a deliberate 500 endpoint; traffic was generated with a curl loop (see screenshots).
