@@ -1,0 +1,6 @@
+[Unit]
+Description=System health check
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/system_health.sh --log-file /var/log/health_log.txt

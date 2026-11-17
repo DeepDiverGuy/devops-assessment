@@ -2,7 +2,7 @@
 - [x] M0 Setup
 - [x] M1 Python app + tests
 - [x] M2 Dockerfile + docker-compose
-- [ ] M3 Bash health script
+- [x] M3 Bash health script
 - [ ] M4 Observability stack
 - [ ] M5 Kubernetes (kind)
 - [ ] M6 CI pipeline
