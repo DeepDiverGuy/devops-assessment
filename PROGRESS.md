@@ -4,7 +4,7 @@
 - [x] M2 Dockerfile + docker-compose
 - [x] M3 Bash health script
 - [x] M4 Observability stack
-- [ ] M5 Kubernetes (kind)
+- [x] M5 Kubernetes (kind)
 - [ ] M6 CI pipeline
 - [ ] M7 Terraform + AWS
 - [ ] M8 CD (deploy + rollback)
