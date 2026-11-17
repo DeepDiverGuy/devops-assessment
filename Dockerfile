@@ -6,6 +6,7 @@ RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
 # ---- final stage: minimal runtime ----
 FROM python:3.12.8-alpine3.21
+RUN apk upgrade --no-cache
 ARG APP_VERSION=1.0.0
 ARG VCS_REF=unknown
 LABEL org.opencontainers.image.title="devops-task" \
