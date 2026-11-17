@@ -1,0 +1,11 @@
+# Progress
+- [x] M0 Setup
+- [ ] M1 Python app + tests
+- [ ] M2 Dockerfile + docker-compose
+- [ ] M3 Bash health script
+- [ ] M4 Observability stack
+- [ ] M5 Kubernetes (kind)
+- [ ] M6 CI pipeline
+- [ ] M7 Terraform + AWS
+- [ ] M8 CD (deploy + rollback)
+- [ ] M9 README, diagram, screenshots
