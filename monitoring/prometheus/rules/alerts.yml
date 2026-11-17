@@ -1,0 +1,55 @@
+groups:
+  - name: devops-assessment
+    rules:
+      - alert: AppInstanceDown
+        expr: up{job="app"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "App instance {{ $labels.instance }} is down"
+          description: "Prometheus has failed to scrape /metrics for over 1 minute."
+
+      - alert: HighErrorRate
+        expr: |
+          sum(rate(http_errors_total[5m]))
+            / clamp_min(sum(rate(http_requests_total[5m])), 0.001) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "More than 5% of requests are failing"
+          description: "Error ratio over the last 5m is {{ $value | humanizePercentage }}."
+
+      - alert: HostDiskUsageHigh
+        expr: |
+          100 - (node_filesystem_avail_bytes{fstype!~"tmpfs|overlay|squashfs|efivarfs"}
+            / node_filesystem_size_bytes{fstype!~"tmpfs|overlay|squashfs|efivarfs"} * 100) > 80
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Disk {{ $labels.mountpoint }} is over 80% full"
+          description: "Usage is {{ $value | printf \"%.1f\" }}%."
+
+      - alert: ContainerMemoryNearLimit
+        expr: |
+          container_memory_working_set_bytes{name!=""}
+            / (container_spec_memory_limit_bytes{name!=""} > 0) > 0.9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Container {{ $labels.name }} is using over 90% of its memory limit"
+          description: "Usage is {{ $value | humanizePercentage }} of the limit; OOM kill risk."
+
+      - alert: HighP95Latency
+        expr: |
+          histogram_quantile(0.95,
+            sum by (le) (rate(http_request_duration_seconds_bucket[5m]))) > 0.5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "p95 latency above 500ms"
+          description: "p95 is {{ $value | humanizeDuration }}."
