@@ -5,7 +5,7 @@
 - [x] M3 Bash health script
 - [x] M4 Observability stack
 - [x] M5 Kubernetes (kind)
-- [ ] M6 CI pipeline
+- [x] M6 CI pipeline
 - [ ] M7 Terraform + AWS
 - [ ] M8 CD (deploy + rollback)
 - [ ] M9 README, diagram, screenshots
