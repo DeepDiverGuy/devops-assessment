@@ -1,7 +1,7 @@
 # Progress
 - [x] M0 Setup
-- [ ] M1 Python app + tests
-- [ ] M2 Dockerfile + docker-compose
+- [x] M1 Python app + tests
+- [x] M2 Dockerfile + docker-compose
 - [ ] M3 Bash health script
 - [ ] M4 Observability stack
 - [ ] M5 Kubernetes (kind)
