@@ -1,0 +1,5 @@
+# HPA scale-up under load (2 busybox wget loops against the Service)
+NAME         REFERENCE               TARGETS         MINPODS   MAXPODS   REPLICAS
+devops-app   Deployment/devops-app   cpu: 7%/70%     2         5         2
+devops-app   Deployment/devops-app   cpu: 168%/70%   2         5         2
+devops-app   Deployment/devops-app   cpu: 328%/70%   2         5         5
