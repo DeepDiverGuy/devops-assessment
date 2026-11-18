@@ -6,6 +6,6 @@
 - [x] M4 Observability stack
 - [x] M5 Kubernetes (kind)
 - [x] M6 CI pipeline
-- [ ] M7 Terraform + AWS
-- [ ] M8 CD (deploy + rollback)
-- [ ] M9 README, diagram, screenshots
+- [x] M7 Terraform + AWS
+- [x] M8 CD (deploy + rollback)
+- [x] M9 README, diagram, screenshots
