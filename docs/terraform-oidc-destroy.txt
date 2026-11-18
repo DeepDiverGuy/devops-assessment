@@ -1,0 +1,179 @@
+data.aws_caller_identity.current: Reading...
+aws_iam_openid_connect_provider.github: Refreshing state... [id=arn:aws:iam::850869059198:oidc-provider/token.actions.githubusercontent.com]
+data.aws_caller_identity.current: Read complete after 0s [id=850869059198]
+data.aws_iam_policy_document.deploy: Reading...
+data.aws_iam_policy_document.deploy: Read complete after 0s [id=3281160873]
+data.aws_iam_policy_document.trust: Reading...
+data.aws_iam_policy_document.trust: Read complete after 0s [id=381903579]
+aws_iam_role.deploy: Refreshing state... [id=devops-assessment-github-deploy]
+aws_iam_role_policy.deploy: Refreshing state... [id=devops-assessment-github-deploy:ssm-deploy]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_iam_openid_connect_provider.github will be destroyed
+  - resource "aws_iam_openid_connect_provider" "github" {
+      - arn             = "arn:aws:iam::850869059198:oidc-provider/token.actions.githubusercontent.com" -> null
+      - client_id_list  = [
+          - "sts.amazonaws.com",
+        ] -> null
+      - id              = "arn:aws:iam::850869059198:oidc-provider/token.actions.githubusercontent.com" -> null
+      - tags            = {} -> null
+      - tags_all        = {
+          - "ManagedBy" = "terraform"
+          - "Project"   = "devops-assessment"
+        } -> null
+      - thumbprint_list = [
+          - "6938fd4d98bab03faadb97b34396831e3780aea1",
+          - "1c58a3a8518e8759bf075b76b750d4f2df264fcd",
+        ] -> null
+      - url             = "token.actions.githubusercontent.com" -> null
+    }
+
+  # aws_iam_role.deploy will be destroyed
+  - resource "aws_iam_role" "deploy" {
+      - arn                   = "arn:aws:iam::850869059198:role/devops-assessment-github-deploy" -> null
+      - assume_role_policy    = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action    = "sts:AssumeRoleWithWebIdentity"
+                      - Condition = {
+                          - StringEquals = {
+                              - "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
+                              - "token.actions.githubusercontent.com:sub" = [
+                                  - "repo:DeepDiverGuy@100829427/devops-assessment@1461403545:ref:refs/heads/main",
+                                  - "repo:DeepDiverGuy/devops-assessment:ref:refs/heads/main",
+                                ]
+                            }
+                        }
+                      - Effect    = "Allow"
+                      - Principal = {
+                          - Federated = "arn:aws:iam::850869059198:oidc-provider/token.actions.githubusercontent.com"
+                        }
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - create_date           = "2026-11-18T07:33:02Z" -> null
+      - force_detach_policies = false -> null
+      - id                    = "devops-assessment-github-deploy" -> null
+      - managed_policy_arns   = [] -> null
+      - max_session_duration  = 3600 -> null
+      - name                  = "devops-assessment-github-deploy" -> null
+      - path                  = "/" -> null
+      - tags                  = {} -> null
+      - tags_all              = {
+          - "ManagedBy" = "terraform"
+          - "Project"   = "devops-assessment"
+        } -> null
+      - unique_id             = "AROA4MG57PZ7GGR2AB427" -> null
+        # (3 unchanged attributes hidden)
+
+      - inline_policy {
+          - name   = "ssm-deploy" -> null
+          - policy = jsonencode(
+                {
+                  - Statement = [
+                      - {
+                          - Action   = "ssm:SendCommand"
+                          - Effect   = "Allow"
+                          - Resource = "arn:aws:ssm:ap-southeast-1::document/AWS-RunShellScript"
+                        },
+                      - {
+                          - Action    = "ssm:SendCommand"
+                          - Condition = {
+                              - StringEquals = {
+                                  - "ssm:resourceTag/Project" = "devops-assessment"
+                                }
+                            }
+                          - Effect    = "Allow"
+                          - Resource  = "arn:aws:ec2:ap-southeast-1:850869059198:instance/*"
+                        },
+                      - {
+                          - Action   = [
+                              - "ssm:ListCommands",
+                              - "ssm:ListCommandInvocations",
+                              - "ssm:GetCommandInvocation",
+                            ]
+                          - Effect   = "Allow"
+                          - Resource = "*"
+                        },
+                      - {
+                          - Action   = "ec2:DescribeInstances"
+                          - Effect   = "Allow"
+                          - Resource = "*"
+                        },
+                    ]
+                  - Version   = "2012-10-17"
+                }
+            ) -> null
+        }
+    }
+
+  # aws_iam_role_policy.deploy will be destroyed
+  - resource "aws_iam_role_policy" "deploy" {
+      - id          = "devops-assessment-github-deploy:ssm-deploy" -> null
+      - name        = "ssm-deploy" -> null
+      - policy      = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action   = "ssm:SendCommand"
+                      - Effect   = "Allow"
+                      - Resource = "arn:aws:ssm:ap-southeast-1::document/AWS-RunShellScript"
+                    },
+                  - {
+                      - Action    = "ssm:SendCommand"
+                      - Condition = {
+                          - StringEquals = {
+                              - "ssm:resourceTag/Project" = "devops-assessment"
+                            }
+                        }
+                      - Effect    = "Allow"
+                      - Resource  = "arn:aws:ec2:ap-southeast-1:850869059198:instance/*"
+                    },
+                  - {
+                      - Action   = [
+                          - "ssm:ListCommands",
+                          - "ssm:ListCommandInvocations",
+                          - "ssm:GetCommandInvocation",
+                        ]
+                      - Effect   = "Allow"
+                      - Resource = "*"
+                    },
+                  - {
+                      - Action   = "ec2:DescribeInstances"
+                      - Effect   = "Allow"
+                      - Resource = "*"
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - role        = "devops-assessment-github-deploy" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+Plan: 0 to add, 0 to change, 3 to destroy.
+
+Changes to Outputs:
+  - role_arn = "arn:aws:iam::850869059198:role/devops-assessment-github-deploy" -> null
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: 
+aws_iam_role_policy.deploy: Destroying... [id=devops-assessment-github-deploy:ssm-deploy]
+aws_iam_role_policy.deploy: Destruction complete after 1s
+aws_iam_role.deploy: Destroying... [id=devops-assessment-github-deploy]
+aws_iam_role.deploy: Destruction complete after 1s
+aws_iam_openid_connect_provider.github: Destroying... [id=arn:aws:iam::850869059198:oidc-provider/token.actions.githubusercontent.com]
+aws_iam_openid_connect_provider.github: Destruction complete after 0s
+
+Destroy complete! Resources: 3 destroyed.
