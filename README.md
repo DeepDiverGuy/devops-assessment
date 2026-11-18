@@ -194,6 +194,11 @@ No credentials are stored in GitHub. AWS access uses OIDC and short-lived creden
 The deploy role trusts only this repository's `main` branch (GitHub's OIDC subject includes numeric owner and repository
 IDs, which keeps it strict) and may only run `AWS-RunShellScript` on instances tagged `Project=devops-assessment`.
 
+### Teardown
+
+The staging stack was destroyed after testing to avoid charges ([docs/terraform-destroy.txt](docs/terraform-destroy.txt)). Evidence of the successful apply and deploys is in [docs/terraform-outputs.txt](docs/terraform-outputs.txt) and the AWS and CD screenshots above.
+Because the instance no longer exists, a new merge to `main` will make the Deploy workflow fail with "No running staging instance". This is expected. Re-create the stack with `terraform apply -var-file=envs/staging.tfvars` to deploy again.
+
 ## Design decisions
 
 | Decision | Choice | Why, and the trade-off |

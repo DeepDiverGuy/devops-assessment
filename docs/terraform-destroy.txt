@@ -1,0 +1,329 @@
+data.aws_vpc.default: Reading...
+aws_cloudwatch_log_group.app: Refreshing state... [id=/devops-assessment/staging]
+data.aws_ssm_parameter.al2023: Reading...
+data.aws_iam_policy_document.assume: Reading...
+data.aws_iam_policy_document.assume: Read complete after 0s [id=2851119427]
+aws_iam_role.app: Refreshing state... [id=devops-assessment-staging-ec2]
+data.aws_ssm_parameter.al2023: Read complete after 0s [id=/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64]
+data.aws_iam_policy_document.logs: Reading...
+data.aws_iam_policy_document.logs: Read complete after 0s [id=1471224651]
+data.aws_vpc.default: Read complete after 1s [id=vpc-06205e52748df7844]
+data.aws_subnets.default: Reading...
+aws_security_group.app: Refreshing state... [id=sg-0dfa0dbfa3fbd686c]
+data.aws_subnets.default: Read complete after 0s [id=ap-southeast-1]
+aws_iam_role_policy.logs: Refreshing state... [id=devops-assessment-staging-ec2:cloudwatch-logs-write]
+aws_iam_role_policy_attachment.ssm: Refreshing state... [id=devops-assessment-staging-ec2-20261118063725662900000001]
+aws_iam_instance_profile.app: Refreshing state... [id=devops-assessment-staging-ec2]
+aws_instance.app: Refreshing state... [id=i-0655ca52974ef636d]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.app will be destroyed
+  - resource "aws_cloudwatch_log_group" "app" {
+      - arn               = "arn:aws:logs:ap-southeast-1:850869059198:log-group:/devops-assessment/staging" -> null
+      - id                = "/devops-assessment/staging" -> null
+      - log_group_class   = "STANDARD" -> null
+      - name              = "/devops-assessment/staging" -> null
+      - retention_in_days = 7 -> null
+      - skip_destroy      = false -> null
+      - tags              = {} -> null
+      - tags_all          = {
+          - "Environment" = "staging"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "devops-assessment"
+        } -> null
+        # (2 unchanged attributes hidden)
+    }
+
+  # aws_iam_instance_profile.app will be destroyed
+  - resource "aws_iam_instance_profile" "app" {
+      - arn         = "arn:aws:iam::850869059198:instance-profile/devops-assessment-staging-ec2" -> null
+      - create_date = "2026-11-18T06:37:25Z" -> null
+      - id          = "devops-assessment-staging-ec2" -> null
+      - name        = "devops-assessment-staging-ec2" -> null
+      - path        = "/" -> null
+      - role        = "devops-assessment-staging-ec2" -> null
+      - tags        = {} -> null
+      - tags_all    = {
+          - "Environment" = "staging"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "devops-assessment"
+        } -> null
+      - unique_id   = "AIPA4MG57PZ7MMCQDUSSG" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # aws_iam_role.app will be destroyed
+  - resource "aws_iam_role" "app" {
+      - arn                   = "arn:aws:iam::850869059198:role/devops-assessment-staging-ec2" -> null
+      - assume_role_policy    = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action    = "sts:AssumeRole"
+                      - Effect    = "Allow"
+                      - Principal = {
+                          - Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - create_date           = "2026-11-18T06:37:24Z" -> null
+      - force_detach_policies = false -> null
+      - id                    = "devops-assessment-staging-ec2" -> null
+      - managed_policy_arns   = [
+          - "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+        ] -> null
+      - max_session_duration  = 3600 -> null
+      - name                  = "devops-assessment-staging-ec2" -> null
+      - path                  = "/" -> null
+      - tags                  = {} -> null
+      - tags_all              = {
+          - "Environment" = "staging"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "devops-assessment"
+        } -> null
+      - unique_id             = "AROA4MG57PZ7DHEVNZJHO" -> null
+        # (3 unchanged attributes hidden)
+
+      - inline_policy {
+          - name   = "cloudwatch-logs-write" -> null
+          - policy = jsonencode(
+                {
+                  - Statement = [
+                      - {
+                          - Action   = [
+                              - "logs:PutLogEvents",
+                              - "logs:CreateLogStream",
+                            ]
+                          - Effect   = "Allow"
+                          - Resource = "arn:aws:logs:ap-southeast-1:850869059198:log-group:/devops-assessment/staging:*"
+                        },
+                    ]
+                  - Version   = "2012-10-17"
+                }
+            ) -> null
+        }
+    }
+
+  # aws_iam_role_policy.logs will be destroyed
+  - resource "aws_iam_role_policy" "logs" {
+      - id          = "devops-assessment-staging-ec2:cloudwatch-logs-write" -> null
+      - name        = "cloudwatch-logs-write" -> null
+      - policy      = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action   = [
+                          - "logs:PutLogEvents",
+                          - "logs:CreateLogStream",
+                        ]
+                      - Effect   = "Allow"
+                      - Resource = "arn:aws:logs:ap-southeast-1:850869059198:log-group:/devops-assessment/staging:*"
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - role        = "devops-assessment-staging-ec2" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # aws_iam_role_policy_attachment.ssm will be destroyed
+  - resource "aws_iam_role_policy_attachment" "ssm" {
+      - id         = "devops-assessment-staging-ec2-20261118063725662900000001" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore" -> null
+      - role       = "devops-assessment-staging-ec2" -> null
+    }
+
+  # aws_instance.app will be destroyed
+  - resource "aws_instance" "app" {
+      - ami                                  = (sensitive value) -> null
+      - arn                                  = "arn:aws:ec2:ap-southeast-1:850869059198:instance/i-0655ca52974ef636d" -> null
+      - associate_public_ip_address          = true -> null
+      - availability_zone                    = "ap-southeast-1c" -> null
+      - cpu_core_count                       = 1 -> null
+      - cpu_threads_per_core                 = 2 -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - ebs_optimized                        = false -> null
+      - get_password_data                    = false -> null
+      - hibernation                          = false -> null
+      - iam_instance_profile                 = "devops-assessment-staging-ec2" -> null
+      - id                                   = "i-0655ca52974ef636d" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t3.micro" -> null
+      - ipv6_address_count                   = 0 -> null
+      - ipv6_addresses                       = [] -> null
+      - monitoring                           = false -> null
+      - placement_partition_number           = 0 -> null
+      - primary_network_interface_id         = "eni-09be651993cb18a95" -> null
+      - private_dns                          = "ip-172-31-10-0.ap-southeast-1.compute.internal" -> null
+      - private_ip                           = "172.31.10.0" -> null
+      - public_dns                           = "ec2-13-251-43-109.ap-southeast-1.compute.amazonaws.com" -> null
+      - public_ip                            = "13.251.43.109" -> null
+      - secondary_private_ips                = [] -> null
+      - security_groups                      = [
+          - "devops-assessment-staging-app",
+        ] -> null
+      - source_dest_check                    = true -> null
+      - subnet_id                            = "subnet-07546343f08565972" -> null
+      - tags                                 = {
+          - "Name" = "devops-assessment-staging"
+        } -> null
+      - tags_all                             = {
+          - "Environment" = "staging"
+          - "ManagedBy"   = "terraform"
+          - "Name"        = "devops-assessment-staging"
+          - "Project"     = "devops-assessment"
+        } -> null
+      - tenancy                              = "default" -> null
+      - user_data                            = "e991f088e4e554f9beb77a9ad83a6e4084a83c4a" -> null
+      - user_data_replace_on_change          = false -> null
+      - vpc_security_group_ids               = [
+          - "sg-0dfa0dbfa3fbd686c",
+        ] -> null
+        # (7 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      - cpu_options {
+          - core_count       = 1 -> null
+          - threads_per_core = 2 -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "unlimited" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_protocol_ipv6          = "disabled" -> null
+          - http_put_response_hop_limit = 2 -> null
+          - http_tokens                 = "required" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/xvda" -> null
+          - encrypted             = true -> null
+          - iops                  = 3000 -> null
+          - kms_key_id            = "arn:aws:kms:ap-southeast-1:850869059198:key/d16972e1-cdd3-4b0c-a791-05c54e3c52d7" -> null
+          - tags                  = {} -> null
+          - tags_all              = {
+              - "Environment" = "staging"
+              - "ManagedBy"   = "terraform"
+              - "Project"     = "devops-assessment"
+            } -> null
+          - throughput            = 125 -> null
+          - volume_id             = "vol-00acebe19dedd5ea1" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp3" -> null
+        }
+    }
+
+  # aws_security_group.app will be destroyed
+  - resource "aws_security_group" "app" {
+      - arn                    = "arn:aws:ec2:ap-southeast-1:850869059198:security-group/sg-0dfa0dbfa3fbd686c" -> null
+      - description            = "App port only; no SSH (access through SSM)" -> null
+      - egress                 = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "Outbound for image pulls, CloudWatch and SSM"
+              - from_port        = 0
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "-1"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 0
+            },
+        ] -> null
+      - id                     = "sg-0dfa0dbfa3fbd686c" -> null
+      - ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - description      = "App HTTP"
+              - from_port        = 8080
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 8080
+            },
+        ] -> null
+      - name                   = "devops-assessment-staging-app" -> null
+      - owner_id               = "850869059198" -> null
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {} -> null
+      - tags_all               = {
+          - "Environment" = "staging"
+          - "ManagedBy"   = "terraform"
+          - "Project"     = "devops-assessment"
+        } -> null
+      - vpc_id                 = "vpc-06205e52748df7844" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+Plan: 0 to add, 0 to change, 7 to destroy.
+
+Changes to Outputs:
+  - app_url     = "http://13.251.43.109:8080" -> null
+  - instance_id = "i-0655ca52974ef636d" -> null
+  - log_group   = "/devops-assessment/staging" -> null
+  - public_ip   = "13.251.43.109" -> null
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: 
+aws_instance.app: Destroying... [id=i-0655ca52974ef636d]
+aws_instance.app: Still destroying... [id=i-0655ca52974ef636d, 00m10s elapsed]
+aws_instance.app: Still destroying... [id=i-0655ca52974ef636d, 00m20s elapsed]
+aws_instance.app: Still destroying... [id=i-0655ca52974ef636d, 00m30s elapsed]
+aws_instance.app: Destruction complete after 31s
+aws_iam_instance_profile.app: Destroying... [id=devops-assessment-staging-ec2]
+aws_iam_role_policy_attachment.ssm: Destroying... [id=devops-assessment-staging-ec2-20261118063725662900000001]
+aws_iam_role_policy.logs: Destroying... [id=devops-assessment-staging-ec2:cloudwatch-logs-write]
+aws_security_group.app: Destroying... [id=sg-0dfa0dbfa3fbd686c]
+aws_security_group.app: Destruction complete after 1s
+aws_iam_role_policy.logs: Destruction complete after 2s
+aws_iam_role_policy_attachment.ssm: Destruction complete after 2s
+aws_cloudwatch_log_group.app: Destroying... [id=/devops-assessment/staging]
+aws_iam_instance_profile.app: Destruction complete after 2s
+aws_iam_role.app: Destroying... [id=devops-assessment-staging-ec2]
+aws_cloudwatch_log_group.app: Destruction complete after 0s
+aws_iam_role.app: Destruction complete after 1s
+
+Destroy complete! Resources: 7 destroyed.
