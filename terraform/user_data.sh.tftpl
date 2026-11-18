@@ -1,0 +1,19 @@
+#!/bin/bash
+set -euxo pipefail
+
+dnf install -y docker
+systemctl enable --now docker
+
+mkdir -p /opt/app /etc/app
+cat > /etc/app/app.env <<'ENVFILE'
+IMAGE_REPO=${image_repo}
+LOG_GROUP=${log_group}
+AWS_REGION=${region}
+ENVIRONMENT=${environment}
+APP_PORT=8080
+ENVFILE
+
+echo '${deploy_b64}' | base64 -d > /usr/local/bin/deploy.sh
+chmod 755 /usr/local/bin/deploy.sh
+
+/usr/local/bin/deploy.sh ${image_tag}
