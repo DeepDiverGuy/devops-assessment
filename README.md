@@ -196,7 +196,7 @@ IDs, which keeps it strict) and may only run `AWS-RunShellScript` on instances t
 
 ### Teardown
 
-The staging stack was destroyed after testing to avoid charges ([docs/terraform-destroy.txt](docs/terraform-destroy.txt)). Evidence of the successful apply and deploys is in [docs/terraform-outputs.txt](docs/terraform-outputs.txt) and the AWS and CD screenshots above.
+The staging stack was destroyed after testing to avoid charges ([docs/terraform-destroy.txt](docs/terraform-destroy.txt)). The GitHub OIDC stack (provider and deploy role) was destroyed too ([docs/terraform-oidc-destroy.txt](docs/terraform-oidc-destroy.txt)); to deploy again, re-apply `terraform/oidc` first and set the `AWS_ROLE_ARN` repository variable to the new role. Evidence of the successful apply and deploys is in [docs/terraform-outputs.txt](docs/terraform-outputs.txt) and the AWS and CD screenshots above.
 Because the instance no longer exists, a new merge to `main` will make the Deploy workflow fail with "No running staging instance". This is expected. Re-create the stack with `terraform apply -var-file=envs/staging.tfvars` to deploy again.
 
 ## Design decisions
