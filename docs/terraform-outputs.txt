@@ -1,0 +1,4 @@
+app_url = "http://13.251.43.109:8080"
+instance_id = "i-0655ca52974ef636d"
+log_group = "/devops-assessment/staging"
+public_ip = "13.251.43.109"
