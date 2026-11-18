@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "trust" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.github_repo}:ref:refs/heads/main"]
+      values   = ["repo:DeepDiverGuy@100829427/devops-assessment@1461403545:ref:refs/heads/main", "repo:${var.github_repo}:ref:refs/heads/main"]
     }
   }
 }
